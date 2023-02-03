@@ -1,0 +1,15 @@
+{
+  "name": "web-socket-prototype",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:vavra7/web-socket-prototype.git",
+  "author": "Tomas Vavrinka <tomas.vavrinka@seznam.cz>",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "npm-check-updates": "^16.6.3"
+  }
+}
