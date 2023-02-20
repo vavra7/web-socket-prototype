@@ -1,18 +1,16 @@
 import { Quote, QuoteUpdateInput } from 'shared';
-import { Service } from 'typedi';
+import { Inject, Service } from 'typedi';
 
 import { QuoteRepository } from '../repositories/quote.repository';
 import { EventEmitter } from '../utils/eventEmitter';
 
 @Service()
 export class QuoteService {
-  private quoteRepository: QuoteRepository;
-  private eventEmitter: EventEmitter;
+  @Inject()
+  private readonly quoteRepository!: QuoteRepository;
 
-  constructor(quoteRepository: QuoteRepository, eventEmitter: EventEmitter) {
-    this.quoteRepository = quoteRepository;
-    this.eventEmitter = eventEmitter;
-  }
+  @Inject()
+  private readonly eventEmitter!: EventEmitter;
 
   public readAll(): Quote[] {
     return this.quoteRepository.findAll();

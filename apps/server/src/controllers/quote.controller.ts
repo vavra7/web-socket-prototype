@@ -1,16 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
-import { Service } from 'typedi';
+import { Inject, Service } from 'typedi';
 
 import { quoteSchema } from '../schemas/quote.schema';
 import { QuoteService } from '../services/quote.service';
 
 @Service()
 export class QuoteController {
-  private quoteService: QuoteService;
-
-  constructor(quoteService: QuoteService) {
-    this.quoteService = quoteService;
-  }
+  @Inject()
+  private readonly quoteService!: QuoteService;
 
   public read(req: Request, res: Response, next: NextFunction): void {
     try {

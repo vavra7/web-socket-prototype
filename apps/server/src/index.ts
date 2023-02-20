@@ -2,6 +2,6 @@ import 'reflect-metadata';
 
 import Container from 'typedi';
 
-import { Server } from './server';
+import { HttpServer } from './httpServer';
 
-Container.get(Server).listen();
+Container.get(HttpServer).init();

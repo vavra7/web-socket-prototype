@@ -1,6 +1,6 @@
-import http, { IncomingMessage, Server as HttpServer, ServerResponse } from 'http';
+import http, { IncomingMessage, Server, ServerResponse } from 'http';
 import { Server as WsServer } from 'socket.io';
-import Container, { Service } from 'typedi';
+import Container, { Inject, Service } from 'typedi';
 
 import { Config } from './config';
 import { Express } from './express';
@@ -9,22 +9,28 @@ import { EditingUserSocket } from './sockets/editingUser.socket';
 import { BindThis } from './utils/bindThis.decorator';
 
 @Service()
-export class Server {
-  private httpServer: HttpServer;
-  private config: Config;
-  private logger: Winston;
+export class HttpServer {
+  private server: Server;
 
-  constructor(config: Config, logger: Winston, express: Express) {
-    this.httpServer = http.createServer(express.app);
-    this.config = config;
-    this.logger = logger;
-    this.setUpWs();
+  @Inject()
+  private readonly config!: Config;
+
+  @Inject()
+  private readonly express!: Express;
+
+  @Inject()
+  private readonly logger!: Winston;
+
+  constructor() {
+    this.server = http.createServer();
   }
 
-  public listen(): void {
-    this.httpServer.on('listening', this.onListening);
-    this.httpServer.listen(this.config.port);
-    this.httpServer.on('request', this.onRequest);
+  public init(): void {
+    this.express.init();
+    this.server.on('listening', this.onListening);
+    this.server.on('request', this.onRequest);
+    this.initWs();
+    this.server.listen(this.config.port);
   }
 
   @BindThis()
@@ -41,15 +47,16 @@ export class Server {
         res
       })
     );
+    this.express.app(req, res);
   }
 
-  private setUpWs(): void {
-    const wsServer = new WsServer(this.httpServer, {
+  private initWs(): void {
+    const wsServer = new WsServer(this.server, {
       cors: {
         origin: '*'
       }
     });
     Container.set(WsServer, wsServer);
-    Container.get(EditingUserSocket);
+    Container.get(EditingUserSocket).init();
   }
 }

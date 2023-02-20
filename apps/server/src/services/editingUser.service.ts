@@ -1,18 +1,16 @@
 import { EditingUser, EditStatus } from 'shared';
-import { Service } from 'typedi';
+import { Inject, Service } from 'typedi';
 
 import { EditingUserRepository } from '../repositories/editingUser.repository';
 import { QuoteService } from './quote.service';
 
 @Service()
 export class EditingUserService {
-  private editingUserRepository: EditingUserRepository;
-  private quoteService: QuoteService;
+  @Inject()
+  private readonly editingUserRepository!: EditingUserRepository;
 
-  constructor(editingUserRepository: EditingUserRepository, quoteService: QuoteService) {
-    this.editingUserRepository = editingUserRepository;
-    this.quoteService = quoteService;
-  }
+  @Inject()
+  private readonly quoteService!: QuoteService;
 
   public add(editingUser: EditingUser): void {
     return this.editingUserRepository.add(editingUser);

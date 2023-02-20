@@ -1,9 +1,9 @@
 import { StartEdit } from 'shared';
-import * as yup from 'yup';
+import { object, ObjectSchema, string } from 'yup';
 
-const editStartPayload = yup.object().shape<Record<keyof StartEdit, yup.AnySchema>>({
-  quoteId: yup.string().required(),
-  signum: yup.string().required()
+const editStartPayload: ObjectSchema<StartEdit> = object({
+  quoteId: string().required(),
+  signum: string().required()
 });
 
 export const editingUserSchema = {

@@ -1,8 +1,8 @@
 import { QuoteUpdateInput } from 'shared';
-import * as yup from 'yup';
+import { object, ObjectSchema, string } from 'yup';
 
-const editInput = yup.object().shape<Record<keyof QuoteUpdateInput, yup.AnySchema>>({
-  description: yup.string().required()
+const editInput: ObjectSchema<QuoteUpdateInput> = object({
+  description: string().required()
 });
 
 export const quoteSchema = {

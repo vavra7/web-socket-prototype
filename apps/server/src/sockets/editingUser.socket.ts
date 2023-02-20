@@ -1,6 +1,6 @@
 import { EditingUserEventEnum } from 'shared';
 import { Namespace, Server, Socket } from 'socket.io';
-import { Service } from 'typedi';
+import { Inject, Service } from 'typedi';
 
 import { Winston } from '../lib/winston';
 import { editingUserSchema } from '../schemas/editingUser.schema';
@@ -9,24 +9,31 @@ import { EventEmitter } from '../utils/eventEmitter';
 
 @Service()
 export class EditingUserSocket {
-  private server: Server;
   private namespace: Namespace;
-  private editingUserService: EditingUserService;
-  private eventEmitter: EventEmitter;
-  private logger: Winston;
 
-  constructor(
-    server: Server,
-    editingUserService: EditingUserService,
-    eventEmitter: EventEmitter,
-    logger: Winston
-  ) {
-    this.server = server;
+  @Inject()
+  private readonly editingUserService!: EditingUserService;
+
+  @Inject()
+  private readonly eventEmitter!: EventEmitter;
+
+  @Inject()
+  private readonly logger!: Winston;
+
+  constructor(server: Server) {
     this.namespace = server.of('/editing-user');
-    this.editingUserService = editingUserService;
-    this.eventEmitter = eventEmitter;
-    this.logger = logger;
-    this.listen();
+  }
+
+  public init(): void {
+    this.eventEmitter.on('quotes:updated', quoteId => {
+      const status = this.editingUserService.getStatus(quoteId);
+      this.namespace.to(quoteId).emit(EditingUserEventEnum.EditStatus, status);
+    });
+    this.namespace.on('connection', socket => {
+      socket.on(EditingUserEventEnum.StartEdit, payload => this.onStartEdit(socket, payload));
+      socket.on(EditingUserEventEnum.StopEdit, () => this.onStopeEdit(socket));
+      socket.on('disconnecting', () => this.onStopeEdit(socket));
+    });
   }
 
   private async onStartEdit(socket: Socket, payload: unknown): Promise<void> {
@@ -57,17 +64,5 @@ export class EditingUserSocket {
     } catch (err) {
       this.logger.error(err);
     }
-  }
-
-  private listen(): void {
-    this.eventEmitter.on('quotes:updated', quoteId => {
-      const status = this.editingUserService.getStatus(quoteId);
-      this.namespace.to(quoteId).emit(EditingUserEventEnum.EditStatus, status);
-    });
-    this.namespace.on('connection', socket => {
-      socket.on(EditingUserEventEnum.StartEdit, payload => this.onStartEdit(socket, payload));
-      socket.on(EditingUserEventEnum.StopEdit, () => this.onStopeEdit(socket));
-      socket.on('disconnecting', () => this.onStopeEdit(socket));
-    });
   }
 }
