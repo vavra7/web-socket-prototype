@@ -1,4 +1,5 @@
-import http, { IncomingMessage, Server, ServerResponse } from 'http';
+import http, { IncomingMessage, Server, ServerResponse } from 'node:http';
+
 import { Server as WsServer } from 'socket.io';
 import Container, { Inject, Service } from 'typedi';
 

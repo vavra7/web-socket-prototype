@@ -1,0 +1,50 @@
+{
+  "artificialDelayMilliseconds": 100,
+  "keepExistingTerminalsOpen": false,
+  "runOnStartup": false,
+  "terminals": [
+    {
+      "splitTerminals": [
+        {
+          "name": "root"
+        }
+      ]
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "client",
+          "commands": ["cd ./apps/client", "yarn dev"]
+        },
+        {
+          "name": "terminal",
+          "commands": ["cd ./apps/client"]
+        }
+      ]
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "server",
+          "commands": ["cd ./apps/server", "yarn dev"]
+        },
+        {
+          "name": "terminal",
+          "commands": ["cd ./apps/server"]
+        }
+      ]
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "shared",
+          "commands": ["cd ./packages/shared", "yarn dev"]
+        },
+        {
+          "name": "terminal",
+          "commands": ["cd ./packages/shared"]
+        }
+      ]
+    }
+  ]
+}

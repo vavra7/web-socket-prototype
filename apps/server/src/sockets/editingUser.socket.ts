@@ -31,8 +31,8 @@ export class EditingUserSocket {
     });
     this.namespace.on('connection', socket => {
       socket.on(EditingUserEventEnum.StartEdit, payload => this.onStartEdit(socket, payload));
-      socket.on(EditingUserEventEnum.StopEdit, () => this.onStopeEdit(socket));
-      socket.on('disconnecting', () => this.onStopeEdit(socket));
+      socket.on(EditingUserEventEnum.StopEdit, () => this.onStopEdit(socket));
+      socket.on('disconnecting', () => this.onStopEdit(socket));
     });
   }
 
@@ -52,7 +52,7 @@ export class EditingUserSocket {
     }
   }
 
-  private async onStopeEdit(socket: Socket): Promise<void> {
+  private async onStopEdit(socket: Socket): Promise<void> {
     try {
       const presentInRooms = Array.from(socket.rooms).filter(item => item !== socket.id);
       presentInRooms.forEach(quoteId => {
