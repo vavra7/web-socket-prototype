@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="9nzFfJOiQCiTrgzbj1Kd" name="Server Architecture">
-        <mxGraphModel dx="1914" dy="937" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="2169" dy="1208" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -47,7 +47,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="hYxX7uPKr27TxRZZdxpK" name="Networking">
-        <mxGraphModel dx="1914" dy="937" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="2169" dy="1208" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -147,13 +147,13 @@
                 <mxCell id="s9FMSxtufiQVNxBVckP9-21" value="AMQP" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" parent="s9FMSxtufiQVNxBVckP9-20" connectable="0" vertex="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="mlzdyVpbo0aRIE2vmQru-1" value="" style="endArrow=classic;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="s9FMSxtufiQVNxBVckP9-3" target="s9FMSxtufiQVNxBVckP9-2">
+                <mxCell id="mlzdyVpbo0aRIE2vmQru-1" value="" style="endArrow=classic;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="s9FMSxtufiQVNxBVckP9-3" target="s9FMSxtufiQVNxBVckP9-2" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="250" y="590" as="sourcePoint"/>
                         <mxPoint x="260" y="650" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="mlzdyVpbo0aRIE2vmQru-2" value="HTTP" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="mlzdyVpbo0aRIE2vmQru-1">
+                <mxCell id="mlzdyVpbo0aRIE2vmQru-2" value="HTTP" style="edgeLabel;resizable=0;html=1;align=center;verticalAlign=middle;" parent="mlzdyVpbo0aRIE2vmQru-1" connectable="0" vertex="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
             </root>

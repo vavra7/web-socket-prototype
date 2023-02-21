@@ -13,7 +13,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@vavra7/eslint": "*",
+    "@vavra7/eslint": "1.5.0",
     "typescript": "^4.9.5"
   }
 }
